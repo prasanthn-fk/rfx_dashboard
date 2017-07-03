@@ -1,0 +1,24 @@
+var EventLogger = function() {
+  
+  this.logPublish = function(config, list, who, when) {
+    var id = config.property("ID");
+    for (var i in list) {
+      Dashboard.publishRFxEvent(id, list[i], when);
+    }
+  }
+  
+  this.logCreate = function(config, who, when) {
+    var id = config.property("ID");
+    var name = config.property("Name");
+    var vertical = config.property("Vertical");
+    Dashboard.createRFxEvent(id, name, who, when, vertical);
+  }
+
+  this.logReceivedEvents = function(config, pricesheets) {
+    var id = config.property("ID");
+    for (var i in pricesheets) {
+      var psheet = pricesheets[i];
+      Dashboard.receiveRFxEvent(id, psheet.vendor, psheet.name, psheet.time, psheet.url);
+    }
+  }
+}
